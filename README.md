@@ -2,6 +2,12 @@
 
 Simple webpage to display gathered temperature and humidity data.
 
+![sensor-dashboard](https://github.com/FliegendeWurst/sensor-dashboard/assets/12560461/36d6f584-ba88-4856-822c-eaf265414ccf)
+
+## Usage
+
+First, run take_measurement from [raspi-oled](https://github.com/FliegendeWurst/raspi-oled) regularly. Then run `python3 server.py` and go to http://127.0.0.1:24473.
+
 ## License
 
 ### papaparse.js
