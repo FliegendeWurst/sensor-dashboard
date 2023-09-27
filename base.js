@@ -36,14 +36,20 @@ function buttonsPlugin(opts) {
     };
 }
 
+function getSize() {
+    return {
+        width: document.getElementById("plot").clientWidth,
+		height: 600
+    };
+}
+
 function processCSV() {
 	let plotData = [dataX, dataY, dataY2];
 	let opts = {
 		title: "Temperature and humidity stats",
 		id: "chart1",
 		class: "my-chart",
-		width: document.getElementById("plot").clientWidth,
-		height: 600,
+		...getSize(),
         plugins: [
             buttonsPlugin({})
         ],
@@ -154,6 +160,11 @@ function processCSV() {
             document.getElementById("day").click();
         }
     }, 500);
+
+    // automatically resize plot
+    window.addEventListener("resize", e => {
+        uplot.setSize(getSize());
+    });
 }
 Papa.parse('./x.csv', {
 	delimiter: ",",
