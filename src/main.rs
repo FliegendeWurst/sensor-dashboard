@@ -19,11 +19,12 @@ fn main() {
 	}
 	// exclude outliers (> X °C diff and not between consecutive values)
 	// remember, measurements are done once every 10 minutes
-	// it is unlikely the temp. will sway by 2.4 ° C in that timeframe
+	// it is unlikely the temp. will sway by 1.9 °C in that timeframe
 	windows_mut_each(&mut values, 3, |vars| {
-		if vars[1].0 - vars[0].0 >= 5000000 {
+		if vars[1].0 - vars[0].0 >= 5000000 { // keep measurements after long gaps
 			return;
 		}
+		// spike up
 		if vars[1].1.abs_diff(vars[0].1) >= 19 && vars[1].1 > vars[0].1 && vars[1].1 > vars[2].1 {
 			vars[1].3 = false;
 		}

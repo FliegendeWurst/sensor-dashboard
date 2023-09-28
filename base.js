@@ -5,6 +5,8 @@ let dataY2 = [];
 let dataY3 = [];
 let xMin = Number.MAX_SAFE_INTEGER;
 let xMax = 0;
+let height = 600;
+let isMobile = false;
 
 function buttonsPlugin(opts) {
     return {
@@ -39,7 +41,7 @@ function buttonsPlugin(opts) {
 function getSize() {
     return {
         width: document.getElementById("plot").clientWidth,
-		height: 600
+		height: height
     };
 }
 
@@ -154,15 +156,25 @@ function processCSV() {
 
     // mobile view: activate 24h initially
     setTimeout(() => {
-        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
         if (vh > vw) {
             document.getElementById("day").click();
+			height = vh / 2;
+			uplot.setSize(getSize());
+			isMobile = true;
         }
     }, 500);
 
     // automatically resize plot
     window.addEventListener("resize", e => {
+		const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+		const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+		if (isMobile && vw > vh) {
+			height = vh;
+		} else if (isMobile && vh > vw) {
+			height = vh / 2;
+		}
         uplot.setSize(getSize());
     });
 }
