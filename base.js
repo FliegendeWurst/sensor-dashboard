@@ -19,6 +19,10 @@ function buttonsPlugin(opts) {
                     });
                 }
 
+				const day12 = document.getElementById("h12");
+                day12.addEventListener("click", e => {
+                    zoomRange(60 * 60 * 12);
+                });
                 const day = document.getElementById("day");
                 day.addEventListener("click", e => {
                     zoomRange(60 * 60 * 24);
@@ -59,7 +63,7 @@ function processCSV() {
 			x: {
 				time: true,
 				range: (u, dataMin, dataMax) => {
-                    if ((dataMax - dataMin) % (60 * 60 * 24) === 0) {
+                    if ((dataMax - dataMin) % (60 * 60 * 12) === 0) {
                         return [dataMin, dataMax];
                     } else {
 					    return [dataMin, Math.ceil(dataMax / (24 * 60 * 60)) * 24 * 60 * 60];
